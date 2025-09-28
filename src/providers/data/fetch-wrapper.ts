@@ -76,5 +76,38 @@ const customFetch = async (url: string, options: RequestInit) =>{ //get the url 
 
 
 
+export const fetchWrapper = async (url : string, options: RequestInit) =>{ //fetchwrapper function
 
+    const response = await customFetch(url,options); //get the response calling the custom fetch fucnction
+
+    const responseClone = response.clone(); //make a clone of that response 
+
+/*
+
+Why clone here?
+
+A Response object (from fetch) has a streaming body.
+
+Once you read it (response.json(), response.text() etc.), the stream is consumed and you can’t read
+
+
+But in your case:
+
+You need to inspect the body (to check for GraphQL errors).
+
+You also want to return the original response so the caller can still use it (e.g., parse JSON again).
+
+*/
+
+
+    const body = await responseClone.json(); // read the json body from the clone
+
+    const error = getGraphQLErrors(body); //// check if GraphQL returned errors
+    
+    
+    if (error){
+        throw error; //throw error if found
+    }
+    return response; // return original response (so caller can still read it)
+}
 
