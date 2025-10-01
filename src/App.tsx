@@ -1,5 +1,4 @@
 import { GitHubBanner, Refine, WelcomePage, Authenticated } from "@refinedev/core";
-import { ThemedLayout as Layout } from "@refinedev/antd";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 
 import { useNotificationProvider } from "@refinedev/antd";
@@ -13,7 +12,7 @@ import routerProvider, {
 import { App as AntdApp } from "antd";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 
-
+import Layout from "./components/layout"; // Import your custom layout
 import { authProvider, dataProvider, liveProvider } from "./providers"; //import dataProvider, liveProvider
 import {Home, Login, Register, ForgotPassword} from "./pages"
 
@@ -63,7 +62,7 @@ function App() {
                       For example, the <Home /> component below will appear here. */}
                   <Outlet/>
                 </Layout>
-                
+
               </Authenticated>
             }
           >
