@@ -1,26 +1,25 @@
-import { GitHubBanner, Refine, WelcomePage } from "@refinedev/core";
+import { GitHubBanner, Refine, WelcomePage, Authenticated } from "@refinedev/core";
+import { ThemedLayout as Layout } from "@refinedev/antd";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import { useNotificationProvider } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
-import { GraphQLClient,} from "@refinedev/nestjs-query";
-
-
 import routerProvider, {
+  CatchAllNavigate,
   DocumentTitleHandler,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router";
 import { App as AntdApp } from "antd";
-import { createClient } from "graphql-ws";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 
 
 import { authProvider, dataProvider, liveProvider } from "./providers"; //import dataProvider, liveProvider
-
+import {Home, Login, Register, ForgotPassword} from "./pages"
 
 function App() {
+  console.log("App component rendering...");
+  
   return (
     <BrowserRouter>
       <GitHubBanner />
@@ -31,7 +30,7 @@ function App() {
               liveProvider={liveProvider} //providing the live data (ws)
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerProvider}
-                authProvider={authProvider}
+                authProvider={authProvider} // Re-enabled for login functionality
 
 
                 options={{
@@ -42,9 +41,37 @@ function App() {
                 }}
               >
                 <Routes>
-                  <Route index element={<WelcomePage />} />
+                  {/* Public routes */}
+                  <Route path="/register" element={<Register/>} />
+                  <Route path="/login" element={<Login/>} />
+                  <Route path="/forgot-password" element={<ForgotPassword/>} />
+                
+                
+                   {/* Protected routes (only accessible when authenticated).  
+         - `Authenticated` checks if the user is logged in.  
+         - If not, it redirects (`fallback`) to `/login`.  
+         - If yes, it renders `Layout` with an `<Outlet />` inside,  
+           meaning child routes will be displayed within the layout. */}
+              <Route          
+            element={
+              <Authenticated
+                key="authenticated-layout"
+                fallback={<CatchAllNavigate to="/login"/>} // redirect to login if not authenticated
+              >
+                <Layout>
+                  {/* <Outlet /> renders the matched child route inside this layout.
+                      For example, the <Home /> component below will appear here. */}
+                  <Outlet/>
+                </Layout>
+                
+              </Authenticated>
+            }
+          >
+            {/* Child routes rendered inside the <Outlet /> */}
+            <Route index element={<Home/>} />  
+          </Route>
                 </Routes>
-                <RefineKbar />
+                
                 <UnsavedChangesNotifier />
                 <DocumentTitleHandler />
               </Refine>

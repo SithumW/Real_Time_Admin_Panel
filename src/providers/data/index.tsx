@@ -11,12 +11,12 @@ import {createClient} from 'graphql-ws' //websocket
 
 
 
-import {fetchWrapper} from "./fetch-wrapper"
-import { graphql } from "graphql";
+import {fetchWrapper} from "./fetch-wrapper";
 
 
 export const API_BASE_URL = 'https://api.crm.refine.dev'
-export const API_URL = 'https://api.crm.refine.dev'
+export const API_URL = `${API_BASE_URL}/graphql` //graphql endpoint
+
 
 
 export const WS_URL = 'wss:api.crm.refine.dev/graphql'
