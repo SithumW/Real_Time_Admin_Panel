@@ -1,13 +1,45 @@
+import { Row, Col } from 'antd'
 import React from 'react'
 
-export const Home = () => {
-  console.log("Home component rendering...");
-  
+export const Home = () => {  
   return (
-    <div style={{ padding: '20px', textAlign: 'center', backgroundColor: '#f0f0f0' }}>
-      <h1 style={{ color: '#1890ff' }}>Welcome to Real Time Admin Panel</h1>
-      <p style={{ fontSize: '18px' }}>This is your home page!</p>
-      <p style={{ color: '#666' }}>If you can see this, the routing is working!</p>
+    <div>
+
+      <Row
+      gutter = {[32,32]}
+      style = {{
+        marginTop : '32px'
+      }}
+      >
+        <Col
+        xs ={24}//in xtra small devices (fullscreen)
+        sm ={24}//in small devices
+        xl = {8} // in large devices (1/3 of screen)
+        style = {{
+          height : '460px'
+        }}
+        >
+        CalenderUpcomingEvents
+        
+        </Col>
+
+   <Col 
+        xs ={24}//in xtra small devices (fullscreen)
+        sm ={24}//in small devices
+        xl = {8} // in large devices (1/3 of screen)
+        //Work like mediaqueries but easier 
+        
+        style = {{
+          height : '460px'
+        }}
+        >
+        CalenderUpcomingEvents
+        
+        </Col>
+
+
+      </Row>
+      
     </div>
   )
 }

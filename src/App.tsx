@@ -16,6 +16,9 @@ import Layout from "./components/layout"; // Import your custom layout
 import { authProvider, dataProvider, liveProvider } from "./providers"; //import dataProvider, liveProvider
 import {Home, Login, Register, ForgotPassword} from "./pages"
 
+import {Resources} from './config/resources'
+
+
 function App() {
   console.log("App component rendering...");
   
@@ -30,8 +33,24 @@ function App() {
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerProvider}
                 authProvider={authProvider} // Re-enabled for login functionality
+                resources = {Resources
 
+/*🔑 What’s happening here:
 
+Resources is an array of all the resources in your app. (config/resoueces)
+
+Each resource has:
+  name → The internal identifier (maps to resource in hooks like useList, useForm, etc.).
+    list, create, edit, show → The React Router paths for CRUD pages.
+  meta → Extra information like label and icon for the sidebar menu.
+
+Example usage:
+
+  If you use Refine with <Refine resources={Resources} />,
+  Refine will automatically generate routes and sidebar menu items for each resource. */
+
+                } 
+                       
                 options={{
                   syncWithLocation: true,
                   warnWhenUnsavedChanges: true,
