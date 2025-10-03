@@ -2,7 +2,7 @@
 import { IResourceItem } from '@refinedev/core'
 
 // Ant Design icons for the sidebar
-import { DashboardOutlined, ProjectOutlined, ShopOutlined } from '@ant-design/icons'
+import { DashboardOutlined, ProjectOutlined, ShopOutlined, CalendarOutlined } from '@ant-design/icons'
 
 /*
 In Refine, a resource represents an API endpoint or entity (like users, posts, orders).
@@ -41,6 +41,17 @@ export const Resources: IResourceItem[] = [
     meta: {
       label: 'Tasks',
       icon: <ProjectOutlined/>   // Icon in sidebar
+    }
+  },
+
+  {
+    name: 'events',
+    list: '/events',             // Path to list all events
+    create: '/events/new',       // Path to create a new event
+    edit: '/events/edit/:id',    // Path to edit an event
+    meta: {
+      label: 'Events',
+      icon: <CalendarOutlined/>  // Icon in sidebar
     }
   }
 
